@@ -57,6 +57,15 @@ contract Twitter{
         MAX_len = newlength;
     }
 
+    function getTotalLikes(address _author) external view returns(uint256){
+        uint255 totalLikes;
+        for(uint i =0;i< tweets[_author].length; i++){
+            totalLikes += tweets[_author][i].likes;
+        }
+
+        return totalLikes;
+    }
+
     function getTweet(uint256 i)public view returns(tweet memory){
         return tweets[msg.sender][i];
     }
