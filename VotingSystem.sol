@@ -38,6 +38,14 @@ contract VotingSystem {
         sender.vote = _candidateIndex;
         candidates[_candidateIndex].voteCount += sender.weight;
     }
+    function getTotalVotes() public view returns (uint) {
+        uint totalVotes;
+        for (uint i = 0; i < candidates.length; i++) {
+                totalVotes += candidates[i].voteCount;
+        }
+         return totalVotes;
+        }
+
 
     function getCandidate(uint _candidateIndex) public view returns (string memory, uint) {
         Candidate storage candidate = candidates[_candidateIndex];
