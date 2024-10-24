@@ -29,4 +29,8 @@ contract InventoryManagement {
     function deleteItem(uint _itemId) public {
         delete items[_itemId];
     }
+
+    function updatePrice(uint _itemId, uint _newPrice) public {
+        items[_itemId].price = _newPrice;
+    }
 }
