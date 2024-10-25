@@ -33,4 +33,12 @@ contract InventoryManagement {
     function updatePrice(uint _itemId, uint _newPrice) public {
         items[_itemId].price = _newPrice;
     }
+
+    function getTotalInventoryValue() public view returns (uint) {
+        uint totalValue = 0;
+        for (uint i = 1; i <= itemCount; i++) {
+            totalValue += items[i].price * items[i].stock;
+        }
+        return totalValue;
+    }
 }
