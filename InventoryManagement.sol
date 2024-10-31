@@ -41,4 +41,25 @@ contract InventoryManagement {
         }
         return totalValue;
     }
+
+    function deleteMultipleItems(uint[] memory _itemIds) public {
+        for (uint i = 0; i < _itemIds.length; i++) {
+            delete items[_itemIds[i]];
+        }
+    }
+
+    function getItemsInRange(uint _startId, uint _endId) public view returns (Item[] memory) {
+        require(_startId >= 1 && _endId <= itemCount, "Invalid range");
+        require(_endId >= _startId, "End ID must be greater than start ID");
+
+        Item[] memory itemRange = new Item[](_endId - _startId + 1);
+        uint index = 0;
+
+        for (uint i = _startId; i <= _endId; i++) {
+            itemRange[index] = items[i];
+            index++;
+        }
+
+        return itemRange;
+    }
 }
