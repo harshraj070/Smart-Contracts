@@ -62,4 +62,12 @@ contract InventoryManagement {
 
         return itemRange;
     }
+
+    function giftItems(address[] calldata recipients, uint _itemId, uint amount) public {
+        require(items[_itemId].stock >= amount * recipients.length, "Insufficient stock");
+
+        for (uint i = 0; i < recipients.length; i++) {
+            items[_itemId].stock -= amount;
+        }
+    }
 }
