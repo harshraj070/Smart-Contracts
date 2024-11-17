@@ -36,6 +36,21 @@ contract Blog {
         emit PostUpdated(_id, _title, _contentHash, msg.sender, block.timestamp);
     }
 
+    // Delete an existing post by ID (only the author can delete)
+    function deletePost(uint256 _id) public {
+        require(_id > 0 && _id <= postCount, "Invalid post ID");
+        Post storage post = posts[_id - 1];
+        require(post.author == msg.sender, "You are not the author");
+
+        // Clear the post data
+        post.title = "";
+        post.contentHash = "";
+        post.timestamp = 0;
+        post.author = address(0);
+
+        emit PostUpdated(_id, "", "", address(0), 0); // Indicate the post is deleted
+    }
+
     // Fetch a post by ID
     function getPost(uint256 _id) public view returns (Post memory) {
         require(_id > 0 && _id <= postCount, "Invalid post ID");
