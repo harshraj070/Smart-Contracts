@@ -64,4 +64,21 @@ contract VotingSystem {
             voters[voterAddress].hasVoted = false;
         }
     }
+
+    function getLeadingCandidate() public view returns (string memory name, uint voteCount) {
+        require(candidates.length > 0, "No candidates available.");
+        
+        uint leadingVoteCount = 0;
+        uint leadingCandidateIndex = 0;
+
+        for (uint i = 0; i < candidates.length; i++) {
+            if (candidates[i].voteCount > leadingVoteCount) {
+                leadingVoteCount = candidates[i].voteCount;
+                leadingCandidateIndex = i;
+            }
+        }
+
+        Candidate storage leadingCandidate = candidates[leadingCandidateIndex];
+        return (leadingCandidate.name, leadingCandidate.voteCount);
+    }
 }
