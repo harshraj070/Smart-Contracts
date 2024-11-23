@@ -61,4 +61,9 @@ contract Blog {
     function getPostCount() public view returns (uint256) {
         return postCount;
     }
+
+    // Fetch all posts
+    function getAllPosts() public view returns (Post[] memory) {
+        return posts;
+    }
 }
