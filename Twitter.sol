@@ -83,4 +83,14 @@ contract Twitter {
         require(tweets[author][id].id == id, "Tweet does not exist");
         delete tweets[author][id];
     }
+
+    // Fetch all tweets of a user along with total likes for their tweets
+    function getAllTweetsWithLikes(address owner_) public view returns (tweet[] memory, uint256 totalLikes) {
+        totalLikes = 0;
+        tweet[] memory userTweets = tweets[owner_];
+        for (uint256 i = 0; i < userTweets.length; i++) {
+            totalLikes += userTweets[i].likes;
+        }
+        return (userTweets, totalLikes);
+    }
 }
